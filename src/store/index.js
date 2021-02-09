@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+const {ipcRenderer} = require('electron')
 
 Vue.use(Vuex)
 
@@ -42,6 +43,9 @@ export default new Vuex.Store({
     },
     addNote: (state, payload) => {
       state.commit('ADD_NOTE', payload)
+      ipcRenderer.send('channel1', JSON.stringify(payload))
+      localStorage.setItem('yone', 'yasuo')
+      console.log(localStorage.getItem('yone'));
     },
 
     deleteNote: (state, note) => {
@@ -50,6 +54,7 @@ export default new Vuex.Store({
   },
   getters: {
     notes: state => {
+      ipcRenderer.send('channel1', JSON.stringify(state.notes))
       return state.notes
     },
 

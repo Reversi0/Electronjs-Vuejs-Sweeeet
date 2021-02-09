@@ -3,7 +3,8 @@
 import {
   app,
   protocol,
-  BrowserWindow
+  BrowserWindow,
+  ipcMain
 } from 'electron'
 import {
   createProtocol,
@@ -48,6 +49,10 @@ function createWindow() {
     win = null
   })
 }
+
+ipcMain.on('channel1', (e, args) => {
+  console.log(args)
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
